@@ -30,7 +30,14 @@ public class PatientServiceImp implements PatientService{
 	@Override
 	public Patient fetchPatientById(String patientid) {
 		// TODO Auto-generated method stub
-		return patientrepository.findById(patientid).get();
+		Patient p=null;
+		try {
+			p=patientrepository.findById(patientid).get();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return p;
 	}
 
 	@Override

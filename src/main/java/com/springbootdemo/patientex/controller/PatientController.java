@@ -2,6 +2,7 @@ package com.springbootdemo.patientex.controller;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,38 +31,45 @@ public class PatientController {
 	@PostMapping("/patients")
 	//@ResponseStatus(code= HttpStatus.OK, reason="OK")
 	public ResponseEntity<Patient> savePatient (@RequestBody Patient patient) {
-		Patient p=patientservice.savePatient(patient);
-		return ResponseEntity.status(HttpStatus.OK).body(p);
+		Patient p;
+		try {
+			p=patientservice.savePatient(patient);
+			return ResponseEntity.of(Optional.of(p));
+		}
+		catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 		//return patientservice.savePatient(patient);
 	}
 	
 	@GetMapping("/patients")
-	@ResponseStatus(code= HttpStatus.OK, reason="OK")
-	public List<Patient> fetchPatientList(){
-		return patientservice.fetchPatientList();
+	//@ResponseStatus(code= HttpStatus.OK, reason="OK")
+	public ResponseEntity<List<Patient>> fetchPatientList(){
+		List<Patient> l=patientservice.fetchPatientList();
+		if(l.size()<=0) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		return ResponseEntity.of(Optional.of(l));
 	}
 	
 	@GetMapping("/patient/{id}")
 	public ResponseEntity<Patient> fetchPatientById(@PathVariable("id")String Patientid) {
 		Patient p=patientservice.fetchPatientById(Patientid);
 		if(Objects.isNull(p)) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(p);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
-		else {
-			return ResponseEntity.status(HttpStatus.OK).body(p);
-		}
-		//return patientservice.fetchPatientById(Patientid);
+		return ResponseEntity.of(Optional.of(p));
 	}
 	
 	@DeleteMapping("/patients/{id}")
 	public ResponseEntity<String> deletePatientById(@PathVariable("id")String Patientid) {
 		Patient p=patientservice.fetchPatientById(Patientid);
 		if(Objects.isNull(p)) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("no such patient");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		else {
 			patientservice.deletePatientById(Patientid);
-			return ResponseEntity.status(HttpStatus.OK).body("Patient deleted successfully");
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Patient deleted successfully");
 		}
 		//return "Patient deleted successfully";
 	}
@@ -70,11 +78,11 @@ public class PatientController {
 	public ResponseEntity<Patient> updatePatient(@PathVariable("id")String Patientid,@RequestBody Patient patient) {
 		Patient p=patientservice.fetchPatientById(Patientid);
 		if(Objects.isNull(p)) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(p);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		else {
 			p=patientservice.updatePatient(Patientid,patient);
-			return ResponseEntity.status(HttpStatus.OK).body(p);
+			return ResponseEntity.of(Optional.of(p));
 		}
 		//return patientservice.updatePatient(Patientid,patient);
 	}
