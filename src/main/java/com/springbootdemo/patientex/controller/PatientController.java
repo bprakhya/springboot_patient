@@ -36,6 +36,7 @@ public class PatientController {
 	}
 	
 	@GetMapping("/patients")
+	@ResponseStatus(code= HttpStatus.OK, reason="OK")
 	public List<Patient> fetchPatientList(){
 		return patientservice.fetchPatientList();
 	}
@@ -53,14 +54,29 @@ public class PatientController {
 	}
 	
 	@DeleteMapping("/patients/{id}")
-	public String deletePatientById(@PathVariable("id")String Patientid) {
-		patientservice.deletePatientById(Patientid);
-		return "Patient deleted successfully";
+	public ResponseEntity<String> deletePatientById(@PathVariable("id")String Patientid) {
+		Patient p=patientservice.fetchPatientById(Patientid);
+		if(Objects.isNull(p)) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("no such patient");
+		}
+		else {
+			patientservice.deletePatientById(Patientid);
+			return ResponseEntity.status(HttpStatus.OK).body("Patient deleted successfully");
+		}
+		//return "Patient deleted successfully";
 	}
 	
 	@PutMapping("/patients/{id}")
-	public Patient updatePatient(@PathVariable("id")String Patientid,@RequestBody Patient patient) {
-		return patientservice.updatePatient(Patientid,patient);
+	public ResponseEntity<Patient> updatePatient(@PathVariable("id")String Patientid,@RequestBody Patient patient) {
+		Patient p=patientservice.fetchPatientById(Patientid);
+		if(Objects.isNull(p)) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(p);
+		}
+		else {
+			p=patientservice.updatePatient(Patientid,patient);
+			return ResponseEntity.status(HttpStatus.OK).body(p);
+		}
+		//return patientservice.updatePatient(Patientid,patient);
 	}
 
 }
