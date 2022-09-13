@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class PatientController {
 	private PatientService patientservice;
 	
 	@PostMapping("/patients")
+	@CrossOrigin(origins ="http://localhost:4200/")
 	//@ResponseStatus(code= HttpStatus.OK, reason="OK")
 	public ResponseEntity<Patient> savePatient (@RequestBody Patient patient) {
 		Patient p;
@@ -41,9 +43,10 @@ public class PatientController {
 		}
 		//return patientservice.savePatient(patient);
 	}
-	
-	@GetMapping("/patients")
+
 	//@ResponseStatus(code= HttpStatus.OK, reason="OK")
+	@GetMapping("/patients")
+	@CrossOrigin(origins ="http://localhost:4200/")
 	public ResponseEntity<List<Patient>> fetchPatientList(){
 		List<Patient> l=patientservice.fetchPatientList();
 		if(l.size()<=0) {
@@ -53,6 +56,7 @@ public class PatientController {
 	}
 	
 	@GetMapping("/patient/{id}")
+	@CrossOrigin(origins ="http://localhost:4200/")
 	public ResponseEntity<Patient> fetchPatientById(@PathVariable("id")String Patientid) {
 		Patient p=patientservice.fetchPatientById(Patientid);
 		if(Objects.isNull(p)) {
@@ -62,6 +66,7 @@ public class PatientController {
 	}
 	
 	@DeleteMapping("/patients/{id}")
+	@CrossOrigin(origins ="http://localhost:4200/")
 	public ResponseEntity<String> deletePatientById(@PathVariable("id")String Patientid) {
 		Patient p=patientservice.fetchPatientById(Patientid);
 		if(Objects.isNull(p)) {
@@ -75,6 +80,7 @@ public class PatientController {
 	}
 	
 	@PutMapping("/patients/{id}")
+	@CrossOrigin(origins ="http://localhost:4200/")
 	public ResponseEntity<Patient> updatePatient(@PathVariable("id")String Patientid,@RequestBody Patient patient) {
 		Patient p=patientservice.fetchPatientById(Patientid);
 		if(Objects.isNull(p)) {

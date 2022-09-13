@@ -56,6 +56,12 @@ public class PatientServiceImp implements PatientService{
 		if(Objects.nonNull(patient.getAddress()) && !"".equalsIgnoreCase(patient.getAddress())) {
 			patDB.setAddress(patient.getAddress());
 		}
+		if(Objects.nonNull(patient.getdcode()) && !"".equalsIgnoreCase(patient.getdcode())) {
+			patDB.setdcode(patient.getdcode());
+		}
+		if(Objects.nonNull(patient.getddate()) && !"".equalsIgnoreCase(patient.getddate())) {
+			patDB.setddate(patient.getddate());
+		}
 		return patientrepository.save(patDB);
 	}
 
