@@ -1,0 +1,27 @@
+
+<div class="container">
+    <h2>Patients list:</h2>
+    <p>Choose actions to perform on a patient</p>            
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Patient ID</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patient_list">
+          <td>{{patient.patient_ID}}</td>
+          <td>{{patient.name}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="updatePatient(patient.patient_ID)">Update</button>&nbsp;
+            <button type="button" class="btn btn-info" (click)="viewPatient(patient.patient_ID)">View</button>&nbsp;
+            <button type="button" class="btn btn-danger" (click)="deletePatient(patient.patient_ID)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <button type="button" class="btn btn-primary" (click)="addPatient()">Add Patient</button>
+  </div>

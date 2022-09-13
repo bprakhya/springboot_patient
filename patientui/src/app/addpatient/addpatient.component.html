@@ -1,0 +1,35 @@
+
+<div class="container">
+<h2>Add a new patient</h2>
+<form #addpatientform="ngForm" (ngSubmit)="addpatient()">
+    <!--{{patient |json}}-->
+    <div class="form-group">
+        <label for="id">Id:</label>
+        <input type="text" class="form-control" required [(ngModel)]="patient.patient_ID" name="id">
+    </div>
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" required [(ngModel)]="patient.name" name="name">
+    </div>
+    <div class="form-group">
+        <label for="address">Address:</label>
+        <!--<input type="text" class="form-control" required [(ngModel)]="patient.address" name="address">-->
+        <textarea class="form-control" rows="5" required [(ngModel)]="patient.address" name="address"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="ddate">Date:</label>
+        <input type="date" class="form-control" required [(ngModel)]="patient.ddate" name="ddate">
+    </div>
+    <div class="form-group">
+        <label for="dcode">Disease code:</label>
+        <select name="dcode" class="form-control" required [(ngModel)]="patient.dcode">
+            <!--<option value="">Select the disease code</option>-->
+            <option value="K71.51">K71.51</option>
+            <option value="K50.013">K50.013</option>
+            <option value="I25.110">I25.110</option>
+        </select>
+    </div>
+    <button type="submit" class="btn-btn-success">Submit</button>&nbsp;
+    <button type="button" class="btn-btn-primary" (click)="gotolist()">Back</button>
+</form>
+</div>
