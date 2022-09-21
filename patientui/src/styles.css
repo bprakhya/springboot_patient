@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+h2{
+    color: blueviolet;
+    font-weight: bold;
+
+}
+p{
+    color: rgb(255, 0, 60);
+    font-style: italic;
+}
+th{
+    color: rgb(171, 112, 24);
+}
+td{
+    color: rgb(10, 150, 96);
+}
+label{
+    color: rgb(226, 43, 198);
+}
+/*input[type=text],textarea,select,input[type=date]{
+    color:white;
+    background-color: #3cbc8d;
+}*/

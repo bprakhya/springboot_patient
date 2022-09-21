@@ -22,13 +22,15 @@
     </div>
     <div class="form-group">
         <label for="dcode">Disease code:</label>
-        <select name="dcode" class="form-control" required [(ngModel)]="patient.dcode">
-            <!--<option value="">Select the disease code</option>-->
+        <select name="dcode" class="form-control" required [(ngModel)]="patient.dcode" onmousedown="if(this.options.length>5){this.size=5}" onchange="this.blur()" onblur="this.removeAttribute('size')">
+            <!--<option value="">Select the disease code</option>
             <option value="K71.51">K71.51</option>
             <option value="K50.013">K50.013</option>
-            <option value="I25.110">I25.110</option>
+            <option value="I25.110">I25.110</option>-->
+            <option *ngFor="let diseasecode of dcodes">{{diseasecode}}</option>
         </select>
     </div>
+    <br>
     <button type="submit" class="btn-btn-success">Submit</button>&nbsp;
     <button type="button" class="btn-btn-primary" (click)="gotolist()">Back</button>
 </form>

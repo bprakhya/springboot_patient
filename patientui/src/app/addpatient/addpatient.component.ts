@@ -10,11 +10,12 @@ import { PatientserviceService } from '../patientservice.service';
   styleUrls: ['./addpatient.component.css']
 })
 export class AddpatientComponent implements OnInit {
-  
+  dcodes=['K71.51','K50.013','I25.110','T81.535','T81.524','C50.212','H02.835','I80.01','L89.213','E11.311','S00-S09','Z47.81','L89.223'];
   patient =new Patient();
   constructor(private route:Router, private service:PatientserviceService) { }
 
   ngOnInit(): void {
+    this.service.setdcodes(this.dcodes);
   }
   addpatient(){
     this.service.addpatientremote(this.patient).subscribe(

@@ -10,10 +10,12 @@ import { PatientserviceService } from '../patientservice.service';
 })
 export class UpdatepatientComponent implements OnInit {
 
+  dcodes:Array<String>;
   patient =new Patient();
   constructor(private route:Router, private service:PatientserviceService,private activatedr:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.dcodes=this.service.getdcodes();
     let id=this.activatedr.snapshot.paramMap.get('id');
     if(id!=null){
     this.service.fetchpatientbyid(id).subscribe(

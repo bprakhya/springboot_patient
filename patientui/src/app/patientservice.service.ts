@@ -8,7 +8,15 @@ import { Patient } from './patient';
 })
 export class PatientserviceService {
 
+  dcodes:Array<String>
   constructor(private http:HttpClient) { }
+
+  setdcodes(data:Array<String>){
+    this.dcodes=data;
+  }
+  getdcodes(){
+    return this.dcodes;
+  }
 
   fetchPatientList():Observable<any>{
     return this.http.get<any>("http://localhost:8082/patients");
